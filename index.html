@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="input" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="search" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div id="weather" class="weather-status text-white text-center">
+            <img id="icon" src="" alt="">
+            <h1 id="location">City</h1>
+            <h3><span id="temp">00</span>&deg;C</h3>
+            <h1 id="description" class="lead"></h1>
+        </div>
+    </div>
+
+    <script>
+        const search = document.getElementById('search');
+        search.addEventListener('click', function(){
+            const input = document.getElementById('input').value;
+            currentTemp(input)
+           
+
+
+            
+        });
+
+
+
+
+        function currentTemp(cityName) {
+                fetch('http://api.openweathermap.org/data/2.5/weather?q=' + cityName +'&appid=a5fe7e2e4adfdf29d62747aaa18ac27b')
+            .then(res => res.json())
+            .then(data =>{
+                 currentWeather(data);
+               
+            })
+        }
+        function currentWeather(d) {
+            let temp = Math.round(parseFloat(d.main.temp)-273.15);
+            let location = d.name;
+            let description = d.weather[0].main;
+            let icon = d.weather[0].icon;
+            let iconUrl = 'http://openweathermap.org/img/wn/'+ icon +'.png'
+            document.getElementById('temp').innerHTML = temp;
+            document.getElementById('location').innerHTML = location;
+            document.getElementById('description').innerHTML =description ;
+            document.getElementById('icon').src = iconUrl;
+        
+        }
+        
+        
+    </script>
+
+</body>
+
+</html>
