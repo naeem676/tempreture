@@ -51,7 +51,7 @@
 
 
         function currentTemp(cityName) {
-                fetch('api.openweathermap.org/data/2.5/weather?q=' + cityName +'&appid=a5fe7e2e4adfdf29d62747aaa18ac27b')
+                fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName +'&appid=a5fe7e2e4adfdf29d62747aaa18ac27b')
             .then(res => res.json())
             .then(data =>{
                  currentWeather(data);
@@ -63,7 +63,7 @@
             let location = d.name;
             let description = d.weather[0].main;
             let icon = d.weather[0].icon;
-            let iconUrl = 'openweathermap.org/img/wn/'+ icon +'.png'
+            let iconUrl = 'https://openweathermap.org/img/wn/'+ icon +'.png'
             document.getElementById('temp').innerHTML = temp;
             document.getElementById('location').innerHTML = location;
             document.getElementById('description').innerHTML =description ;
